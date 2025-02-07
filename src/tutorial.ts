@@ -36,3 +36,83 @@ for (let book of books) {
 }
 
 console.log(findBook?.length);
+
+//arrays
+let fruits: string[] = ["apple", "banana", "mango"];
+fruits.push("orange");
+console.log(fruits);
+
+//objects
+let movie: { name: string; rating: number } = {
+  name: "harrypotter",
+  rating: 5,
+};
+movie.rating = 4;
+console.log(movie);
+
+//arrays and objects
+let car = { name: "audi", model: "A4", year: 2021 };
+let car2 = { name: "bmw", model: "X5", year: 2020 };
+let car3 = { name: "benz", model: "C class" };
+
+let vehicles: { readonly name: string; model: string; year?: number }[] = [
+  car,
+  car2,
+  car3,
+];
+console.log(vehicles);
+
+//functions
+function sayHi(name: string): string {
+  console.log(`Hello there ${name.toUpperCase()}`);
+  return "done";
+}
+sayHi("Michelle");
+
+let names: string[] = ["John", "Doe", "Jane"];
+
+function checkPresent(name: string): boolean {
+  return names.includes(name);
+}
+
+if (checkPresent("John")) {
+  console.log(`John is present in the list`);
+} else {
+  console.log(`John is not present in the list`);
+}
+
+//functions 2
+//optional params
+function calculate(price: number, discount: number): number {
+  return price - price * discount;
+}
+//default params
+function calculate2(price: number, discount: number = 0.1): number {
+  return price - price * discount;
+}
+//rest params
+function sum(message: string, ...numbers: number[]): string {
+  const doubled = numbers.map((num) => num * 2);
+  console.log(doubled);
+  let total = numbers.reduce((prev, curr) => prev + curr, 0);
+  return `${message} ${total}`;
+}
+
+let results = sum("The total is: ", 1, 2, 3, 4, 5);
+
+//function no return
+function logMessage(message: string): void {
+  console.log(message);
+}
+
+//type guard
+function something(input: string | number) {
+  if (typeof input === "number") {
+    console.log(input * 2);
+  } else {
+    console.log(input.toLowerCase());
+  }
+}
+
+something(10);
+something("Hello");
