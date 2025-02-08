@@ -116,3 +116,56 @@ function something(input: string | number) {
 
 something(10);
 something("Hello");
+
+//objects as parameters
+
+function person({ id }: { id: number }): { id: number; isActive: boolean } {
+  return {
+    id,
+    isActive: id % 2 === 0,
+  };
+}
+const first = person({ id: 1 });
+console.log(first);
+
+//alternative
+function person2(details: { id: number; name: string }): void {
+  console.log(
+    `My name is ${details.name.toUpperCase()} and my id is ${details.id}`
+  );
+}
+person2({ id: 1, name: "John" });
+
+//extra property checks
+function person3(details: { id: number; name: string }): void {
+  console.log(
+    `My name is ${details.name.toUpperCase()} and my id is ${details.id}`
+  );
+}
+
+const info = {
+  id: 1,
+  name: "John",
+  isActive: true,
+};
+person3({ id: 1, name: "John" });
+person3(info); //passed in extra property without error
+
+//challenge
+
+function processData(
+  input: string | number,
+  config: { reverse: boolean } = { reverse: false }
+): string | number {
+  if (typeof input === "number") {
+    return input * input;
+  } else {
+    return config.reverse
+      ? input.toUpperCase().split("").reverse().join("")
+      : input.toUpperCase();
+  }
+}
+
+console.log(processData(10));
+console.log(processData("Hello"));
+console.log(processData("Hello", { reverse: true }));
