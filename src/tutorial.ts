@@ -169,3 +169,31 @@ function processData(
 console.log(processData(10));
 console.log(processData("Hello"));
 console.log(processData("Hello", { reverse: true }));
+
+//type alias
+type User = { id: number; name: string; isActive: boolean };
+
+const persona: User = {
+  id: 1,
+  name: "Jimmy",
+  isActive: true,
+};
+//intersection
+const persona2: User & { birth: number } = {
+  id: 2,
+  name: "Jane",
+  isActive: false,
+  birth: 1945,
+};
+
+console.log(persona);
+console.log(persona2);
+
+const propName = "age";
+type Someone = {
+  [propName]: number;
+};
+
+let Tiger: Someone = {
+  [propName]: 10,
+};
