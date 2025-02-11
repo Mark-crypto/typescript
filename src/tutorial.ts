@@ -197,3 +197,65 @@ type Someone = {
 let Tiger: Someone = {
   [propName]: 10,
 };
+
+//Interface
+interface Book {
+  readonly isbn: number;
+  title: string;
+  author: string;
+  genre?: string;
+  //methods
+  printAuthor(): void;
+  printTitle(message: string): string;
+  //alternative
+  printSomething: (value: number) => number;
+}
+
+const deepWork: Book = {
+  isbn: 1234,
+  title: "Deep Work",
+  author: "Cal Newport",
+  genre: "Self-help",
+  printAuthor() {
+    console.log(this.author);
+  },
+  printTitle(message) {
+    return `${this.title} ${message}`;
+  },
+  //first option
+  // printSomething: function (value){
+  //   return value;
+  // }
+  //second option
+  // printSomething: (value) => {
+  //   return value;
+  // },
+  //third option
+  printSomething(value) {
+    return value;
+  },
+};
+
+deepWork.printAuthor();
+deepWork.printTitle("is a great book");
+
+//challenge
+interface Computer {
+  readonly id: number;
+  brand: string;
+  ram: number;
+  storage?: number;
+  upgradeRam(value: number): number;
+}
+
+const computer1: Computer = {
+  id: 1,
+  brand: "lenovo",
+  ram: 8,
+  storage: 512,
+  upgradeRam(value) {
+    return this.ram + value;
+  },
+};
+
+computer1.upgradeRam(8);
