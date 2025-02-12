@@ -259,3 +259,106 @@ const computer1: Computer = {
 };
 
 computer1.upgradeRam(8);
+
+//advanced interface
+
+interface Person {
+  name: string;
+  getDetails(): string;
+}
+
+interface DogOwner {
+  dogName: string;
+  getDogDetails(): string;
+}
+interface Person {
+  age: number;
+}
+
+interface Employee extends Person {
+  employeeId: number;
+}
+
+const per: Person = {
+  name: "John",
+  age: 17,
+  getDetails() {
+    return `Name is ${this.name} and age is ${this.age}`;
+  },
+};
+
+const emp: Employee = {
+  employeeId: 1,
+  name: "Jane",
+  age: 25,
+  getDetails() {
+    return `Name is ${this.name} and age is ${this.age}`;
+  },
+};
+
+interface Manager extends Person, DogOwner {
+  managePeople(): void;
+}
+
+const manager: Manager = {
+  name: "Bob",
+  age: 35,
+  dogName: "Buddy",
+  getDetails() {
+    return `Name is ${this.name} and age is ${this.age}`;
+  },
+  getDogDetails() {
+    return `Name is ${this.dogName}`;
+  },
+  managePeople() {
+    console.log("Managing people");
+  },
+};
+
+manager.managePeople();
+
+//Challenge
+interface Guy {
+  name: string;
+}
+
+interface DogGuy extends Guy {
+  dogName: string;
+}
+
+interface Director extends Guy {
+  managePeople(): void;
+  delegateTasks(): void;
+}
+
+function getEmployee(): Guy | DogGuy | Director {
+  let randomNumber: number = Math.random();
+
+  if (randomNumber < 0.33) {
+    return {
+      name: "John",
+    };
+  } else if (randomNumber < 0.66) {
+    return {
+      name: "Jane",
+      dogName: "Buddy",
+    };
+  } else {
+    return {
+      name: "Bob",
+      managePeople() {
+        console.log("Managing people");
+      },
+      delegateTasks() {
+        console.log("Delegating tasks");
+      },
+    };
+  }
+}
+
+const randomGuy: Guy | DogGuy | Director = getEmployee();
+console.log(randomGuy);
+
+function isManager(obj: Guy | DogGuy | Director): obj is Director {
+  return "managePeople" in obj;
+}
