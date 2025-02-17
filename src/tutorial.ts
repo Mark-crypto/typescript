@@ -362,3 +362,56 @@ console.log(randomGuy);
 function isManager(obj: Guy | DogGuy | Director): obj is Director {
   return "managePeople" in obj;
 }
+
+//tuples and enums
+let personInfo: readonly [string, number, boolean] = ["John", 25, true];
+console.log(personInfo);
+
+function getPerson(): [string, number, boolean] {
+  return ["John", 25, true];
+}
+getPerson();
+let susan: [string, number?] = ["Susan"];
+console.log(susan);
+
+enum ServerResponseStatus {
+  Success,
+  Error,
+}
+interface ServerResponse {
+  result: ServerResponseStatus;
+  data: string[];
+}
+
+function getServerResponse(): ServerResponse {
+  return {
+    result: ServerResponseStatus.Success,
+    data: ["John", "Jane"],
+  };
+}
+
+//challenge
+enum UserRole {
+  Admin,
+  Manager,
+  User,
+}
+
+type User43 = {
+  id: number;
+  name: string;
+  role: UserRole;
+  contact: [string, string];
+};
+
+function createUser(user: User43): User43 {
+  return user;
+}
+
+let akuru: User43 = createUser({
+  id: 1,
+  name: "John",
+  role: UserRole.Admin,
+  contact: ["test@test.com ", " 443"],
+});
+console.log(akuru);
