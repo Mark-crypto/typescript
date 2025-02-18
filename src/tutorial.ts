@@ -415,3 +415,66 @@ let akuru: User43 = createUser({
   contact: ["test@test.com ", " 443"],
 });
 console.log(akuru);
+
+//type assertion, type unknown and type never
+//assertion
+let someValue: any = "Hello there";
+let strLength: number = (someValue as string).length;
+
+type Bird = {
+  name: string;
+};
+
+let birdString = '{"name":"parrot"}';
+let dogString = '{"breed":"poodle"}';
+let dogObject = JSON.parse(dogString);
+let birdObject = JSON.parse(birdString);
+
+let bird = birdObject as Bird;
+console.log(bird);
+//unknown
+let unknownValue: unknown;
+unknownValue = "Hello there";
+unknownValue = [1, 2, 3, 4, 5, 6];
+
+if (typeof unknownValue === "string") {
+  console.log(unknownValue.toUpperCase());
+}
+//never
+let neverValue: never;
+
+type Theme = "light" | "dark";
+
+function setTheme(theme: Theme): void {
+  if (theme === "light") {
+    console.log("Light theme");
+    return;
+  }
+  if (theme === "dark") {
+    console.log("Dark theme");
+    return;
+  }
+  theme;
+}
+
+enum Color {
+  red,
+  blue,
+}
+function getColor(color: Color): void {
+  switch (color) {
+    case Color.red:
+      console.log("Red color");
+      break;
+    case Color.blue:
+      console.log("Blue color");
+      break;
+    default:
+      //at buildtime
+      let unexpectedColor: never = color;
+      //at runtime
+      throw new Error(`Invalid color ${color}`);
+  }
+}
+getColor(Color.red);
+getColor(Color.blue);
