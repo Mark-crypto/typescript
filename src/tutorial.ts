@@ -478,3 +478,19 @@ function getColor(color: Color): void {
 }
 getColor(Color.red);
 getColor(Color.blue);
+
+//ES6 modules
+export function sayHello(name: string): void {
+  console.log(`Hello there ${name}`);
+}
+export let ladyName: string = "Susan";
+
+type Student = {
+  name: string;
+  age: number;
+};
+
+export let newStudent: Student = {
+  name: "John",
+  age: 25,
+};
