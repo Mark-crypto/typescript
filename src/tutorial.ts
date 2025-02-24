@@ -494,3 +494,75 @@ export let newStudent: Student = {
   name: "John",
   age: 25,
 };
+
+//type guarding
+type ValueType = string | number | boolean;
+
+let value: ValueType;
+
+let random = Math.random();
+value = random < 0.33 ? "Hello" : random < 0.66 ? 10.9485769 : true;
+
+function checkValue(value: ValueType): void {
+  if (typeof value === "string") {
+    console.log(value.toLowerCase());
+    return;
+  }
+  if (typeof value === "number") {
+    console.log(value.toFixed(2));
+    return;
+  }
+  if (typeof value === "boolean") {
+    console.log(value ? "Yes" : "No");
+    return;
+  }
+}
+checkValue(value);
+
+type Dog = { type: "dog"; name: string; bark: () => void };
+type Cat = { type: "cat"; name: string; meow: () => void };
+type Animal = Dog | Cat;
+// function makeSound(animal: Animal): void {
+//   if(animal.type === "dog"){
+//     animal.bark();
+//   } else {
+//     animal.meow();
+//   }
+// }
+
+function makeSound(animal: Animal) {
+  if ("bark" in animal) {
+    animal.bark();
+  } else {
+    animal.meow();
+  }
+}
+
+function printLength(str: string | null | undefined) {
+  if (str) {
+    console.log(str.length);
+  } else {
+    console.log("No value");
+  }
+}
+
+try {
+  throw new Error("Something went wrong");
+} catch (error) {
+  if (error instanceof Error) {
+    console.log(`Caught an error object: ${error.message}`);
+  } else {
+    console.log("Unknown error");
+  }
+}
+
+function checkInput(input: Date | string): string {
+  if (input instanceof Date) {
+    return input.getFullYear().toString();
+  } else {
+    return input.toUpperCase();
+  }
+}
+
+checkInput(new Date());
+checkInput("2020-05-10");
