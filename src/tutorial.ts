@@ -566,3 +566,69 @@ function checkInput(input: Date | string): string {
 
 checkInput(new Date());
 checkInput("2020-05-10");
+
+//Type guarding part two
+type Studenter = { name: string; study: () => void };
+type Userer = { name: string; login: () => void };
+
+type Personer = Studenter | Userer;
+
+const randomPerson = (): Personer => {
+  return Math.random() < 0.5
+    ? {
+        name: "John",
+        study: () => {
+          console.log("Studying");
+        },
+      }
+    : {
+        name: "Jane",
+        login: () => {
+          console.log("Logging in");
+        },
+      };
+};
+const ninja = randomPerson();
+function isStudent(person: Personer): person is Studenter {
+  // return "study" in person;
+  return (person as Studenter).study !== undefined;
+}
+
+if (isStudent(ninja)) {
+  ninja.study();
+} else {
+  ninja.login();
+}
+
+type IncrementAction = {
+  type: "increment";
+  amount: number;
+  timestamp: number;
+  user: string;
+};
+type DecrementAction = {
+  type: "decrement";
+  amount: number;
+  timestamp: number;
+  user: string;
+};
+
+type Action = IncrementAction | DecrementAction;
+function reducer(state: number, action: Action) {
+  switch (action.type) {
+    case "increment":
+      return state + action.amount;
+    case "decrement":
+      return state - action.amount;
+    default:
+      const unexpectedAction: never = action;
+      throw new Error(`Unexpected action: ${unexpectedAction}`);
+  }
+}
+
+const newState = reducer(10, {
+  amount: 5,
+  type: "increment",
+  timestamp: 1234567890,
+  user: "John",
+});
