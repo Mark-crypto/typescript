@@ -632,3 +632,43 @@ const newState = reducer(10, {
   timestamp: 1234567890,
   user: "John",
 });
+
+//Generics
+// let array1: string[] =["mango", "apple", "banana"];
+// let array2: number[] = [1, 2, 3, 4, 5];
+// let array3: boolean[] = [true, false, true];
+
+let array1: Array<string> = ["mango", "apple", "banana"];
+let array2: Array<number> = [1, 2, 3, 4, 5];
+let array3: Array<boolean> = [true, false, true];
+
+function createString(arg: string): string {
+  return arg;
+}
+
+function genericFunction<T>(arg: T): T {
+  return arg;
+}
+
+const result = genericFunction<string>("Hello there");
+
+interface GenericInterface<T> {
+  value: T;
+  getValue: () => T;
+}
+var genericstring: GenericInterface<string> = {
+  value: "Hello there",
+  getValue() {
+    return this.value;
+  },
+};
+
+async function someFunc(): Promise<string> {
+  return "Hello there";
+}
+
+function generateStringArray(length: number, value: string): string[] {
+  let result: string[] = [];
+  result = new Array(length).fill(value);
+  return result;
+}
