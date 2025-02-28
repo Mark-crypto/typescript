@@ -672,3 +672,32 @@ function generateStringArray(length: number, value: string): string[] {
   result = new Array(length).fill(value);
   return result;
 }
+
+function createArray<T>(length: number, value: T): Array<T> {
+  let result: T[] = [];
+  result = new Array(length).fill(value);
+  return result;
+}
+
+const strings = createArray<string>(5, "Hello");
+
+function pair<T, U>(param1: T, param2: U): [T, U] {
+  return [param1, param2];
+}
+
+function processValue<T extends string>(value: T): T {
+  console.log(value);
+  return value;
+}
+
+interface storeData<T = any> {
+  data: T[];
+}
+
+const store: storeData<string> = {
+  data: ["John", "Jane"],
+};
+
+const store2: storeData = {
+  data: [1, 2, 3],
+};
