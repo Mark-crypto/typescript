@@ -701,3 +701,41 @@ const store: storeData<string> = {
 const store2: storeData = {
   data: [1, 2, 3],
 };
+
+//fetching data
+import { z } from "zod";
+const url = "https //course-api.com/react-tours-project";
+
+const tourSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  price: z.string(),
+  info: z.string(),
+  image: z.string(),
+});
+type Tour = z.infer<typeof tourSchema>;
+
+async function fecthData(url: string): Promise<Tour[]> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error status: ${response.status}`);
+    }
+    const rawData: Tour[] = await response.json();
+    const result = tourSchema.array().safeParse(rawData);
+    if (!result.success) {
+      throw new Error(`Invalid data: ${result.error}`);
+    }
+    return result.data;
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "There was an error";
+    console.log(errorMessage);
+    return [];
+  }
+}
+
+const tours = await fecthData(url);
+tours.map((tour) => {
+  console.log(tour.name);
+});
