@@ -739,3 +739,56 @@ const tours = await fecthData(url);
 tours.map((tour) => {
   console.log(tour.name);
 });
+
+//classes
+class Book {
+  public title: string;
+  public readonly year: number = 2022;
+  public author: string;
+  private checkedOut: boolean = false;
+
+  constructor(title: string, author: string, private someValue: number) {
+    this.title = title;
+    this.author = author;
+  }
+
+  get info() {
+    return `${this.title} by ${this.author}`;
+  }
+  set owner(name: string) {
+    console.log(`${name} is the new owner`);
+  }
+  getsomeValue() {
+    return this.someValue;
+  }
+  public checkOut() {
+    this.checkedOut = this.toggleIsCheckedOut();
+  }
+  public isCheckedOut() {
+    return this.checkedOut;
+  }
+  private toggleIsCheckedOut() {
+    return !this.checkedOut;
+  }
+}
+
+const deepwork = new Book("Deep Work", "Cal Newport", 254);
+console.log(deepwork);
+
+interface IPerson {
+  name: string;
+  age: number;
+  greet(): void;
+}
+
+class Person implements IPerson {
+  constructor(name: string, age: number) {}
+  greet(): void {
+    console.log(
+      `Hello there my name is ${this.name} and I am ${this.age} years old`
+    );
+  }
+}
+
+const hipster = new Person("John", 25);
+hipster.greet();
