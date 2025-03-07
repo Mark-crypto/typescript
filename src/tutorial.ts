@@ -792,3 +792,21 @@ class Person implements IPerson {
 
 const hipster = new Person("John", 25);
 hipster.greet();
+
+interface IEmployee {
+  name: string;
+  age: number;
+  greet(): void;
+}
+
+class Employee implements IEmployee {
+  constructor(public name: string, public age: number) {}
+  greet(): void {
+    console.log(
+      `Hello there my name is ${this.name} and I am ${this.age} years old`
+    );
+  }
+}
+
+const worker = new Employee("Jane", 30);
+worker.greet();
